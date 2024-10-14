@@ -19,7 +19,7 @@
 }
 
 .heading-l{
-  @apply text-[50px] font-poppins  font-bold;
+  @apply text-[30px] md:text-[50px] font-poppins  font-bold;
 }
 
 .heading-m{
@@ -35,3 +35,23 @@
   @apply text-[18px] font-poppins ;
 }
 
+
+/* common class */
+
+.txtField{
+  @apply text-[.9rem]  dark:bg-slate-800 placeholder:text-black dark:placeholder:text-white dark:border-white;
+}
+
+/* number text field */
+
+/* to disable the slider that happens in the text box */
+.number-input::-webkit-outer-spin-button,
+.number-input::-webkit-inner-spin-button {
+  -webkit-appearance: none; /* Chrome, Safari, Edge, Opera */
+  margin: 0;
+}
+
+/* error msg style */
+.errorMsg{
+  @apply text-sm text-red-500; 
+}
