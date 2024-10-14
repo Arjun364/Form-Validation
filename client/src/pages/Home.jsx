@@ -9,9 +9,23 @@ const Home = () => {
     const [userData, setUserData] = useState(null);
 
     const fetchdata = () => {
-        const data = JSON.parse(localStorage.getItem('user'));
-        setUserData(data);
+        const storedData = localStorage.getItem('user');
+        if (storedData) {
+            try {
+                const data = JSON.parse(storedData);
+                if (data) {
+                    setUserData(data);
+                }
+            } catch (error) {
+                console.error("Error parsing JSON from localStorage:", error);
+            }
+        }
     };
+
+    const logout = () => {
+        localStorage.setItem('user', "")
+        window.location = '/'
+    }
 
     useEffect(() => {
         fetchdata();
@@ -32,23 +46,26 @@ const Home = () => {
                 </span>
             </div>
             <Card className="max-w-sm">
-                <div className="flex flex-col items-center px-[2rem] gap-3 pb-10">
+                <div className="flex flex-col items-center px-[2rem] gap-4 pb-10">
+                    <div className='w-full flex justify-end'>
+                        <span className='text-red-500 cursor-pointer hover:underline' onClick={logout}>logout</span>
+                    </div>
                     {/* Dynamically set the background image with inline styles */}
                     <div
                         className="w-[10rem] h-[10rem] rounded-full bg-cover bg-center border-solid border-4 border-black dark:border-white"
                         style={{ backgroundImage: `url(${userData?.image})` }}
                     ></div>
                     <div className='text-center flex flex-col gap-1'>
-                    <h5 className="mb-1 text-xl font-bold text-gray-900 dark:text-white">
-                        {userData?.fname || 'username'}
-                    </h5>
-                    <span className="text-sm text-gray-500 dark:text-gray-400">
-                        {userData?.email || 'country'}
-                    </span>
-                    <span>{userData?.date || 'dob'} || {userData?.gender ||'gender'}</span>
-                    <span className="text-sm text-gray-500 dark:text-gray-400">
-                        {userData?.phoneNo || 'phone no'}
-                    </span>
+                        <h5 className="mb-1 text-xl font-bold text-gray-900 dark:text-white">
+                            {userData?.fname || 'username'}
+                        </h5>
+                        <span className="text-sm text-gray-500 dark:text-gray-400">
+                            {userData?.email || 'country'}
+                        </span>
+                        <span>{userData?.date || 'dob'} || {userData?.gender || 'gender'}</span>
+                        <span className="text-sm text-gray-500 dark:text-gray-400">
+                            {userData?.phoneNo || 'phone no'}
+                        </span>
                     </div>
 
                 </div>
